@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Maminiainaando/front-projet1.git/static/css/main.b4a4254d.css",
+    "main.js": "/Maminiainaando/front-projet1.git/static/js/main.f74ffe37.js",
+    "static/js/453.f1cdca04.chunk.js": "/Maminiainaando/front-projet1.git/static/js/453.f1cdca04.chunk.js",
+    "index.html": "/Maminiainaando/front-projet1.git/index.html",
+    "main.b4a4254d.css.map": "/Maminiainaando/front-projet1.git/static/css/main.b4a4254d.css.map",
+    "main.f74ffe37.js.map": "/Maminiainaando/front-projet1.git/static/js/main.f74ffe37.js.map",
+    "453.f1cdca04.chunk.js.map": "/Maminiainaando/front-projet1.git/static/js/453.f1cdca04.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b4a4254d.css",
+    "static/js/main.f74ffe37.js"
+  ]
+}
