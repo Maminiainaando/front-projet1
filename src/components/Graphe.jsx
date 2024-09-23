@@ -1,48 +1,35 @@
 import React from 'react';
+import image1 from './images/patrimoine-cresus-sur-quelques-annees.png';
+import image2 from './images/patrimoine-cresus-sur-quelques-annees_obli.png';
+import image3 from './images/patrimoine-cresus-sur-quelques-annees_immo.png';
 
-const Graphe = ({ content, possesseur, possessions }) => {
-  const imagesPossesseurs = {
-    cresus: {
-      trésorerie: ["/patrimoine-cresus-sur-quelques-annees_treso.png"],
-      obligation: ["/patrimoine-cresus-sur-quelques-annees_obli.png"],
-      immobilisations: ["/patrimoine-cresus-sur-quelques-annees_immo.png"]
-    },
-    riche: {
-      trésorerie: ["/patrimoine-riche-sur-quelques-annees_treso.png"],
-      obligation: ["/patrimoine-riche-sur-quelques-annees_obli.png"]
-    },
-    ilo: {
-      agrégat: ["/patrimoine-etudiant-sur-quelques-annees.png"],
-      trésorerie: ["/patrimoine-etudiant-sur-quelques-mois.png"],
-      immobilisations: ["/patrimoine-etudiant-sur-quelques-jours.png"]
-    }
+const TextImageDisplay = () => {
+  const texts = [
+    "Texte aléatoire 1",
+    "Texte aléatoire 2",
+    "Texte aléatoire 3",
+    "Texte aléatoire 4"
+  ];
+
+  const images = [image1, image2, image3];
+
+  const getRandomElement = (array) => {
+    return array[Math.floor(Math.random() * array.length)];
   };
 
-  const getRandomImage = (possesseur, possession) => {
-    const images = imagesPossesseurs[possesseur]?.[possession] || [];
-    return images.length > 0 ? images[Math.floor(Math.random() * images.length)] : null;
-  };
+  const randomText = getRandomElement(texts);
+  const randomImage = getRandomElement(images);
 
-  const renderPossessionItem = (possession, index) => (
-    <div key={index}>
-      <p>{possession}</p>
+  return (
+    <div className="text-image-display">
+      <h3>{randomText}</h3>
       <img
-        src={getRandomImage(possesseur, possession)}
-        alt={`Image pour ${possesseur} avec ${possession}`}
+        src={randomImage}
+        alt={`Image aléatoire - ${randomText}`}
         style={{ maxWidth: '100%', height: 'auto' }}
       />
     </div>
   );
-
-  return (
-    <div className="content-display">
-      <h3>{content.loremIpsumText}</h3>
-      <p>
-        Distance: {content.distance.days} jours, {content.distance.months} mois, {content.distance.years} années
-      </p>
-      {possessions.map(renderPossessionItem)}
-    </div>
-  );
 };
 
-export default Graphe;
+export default TextImageDisplay;

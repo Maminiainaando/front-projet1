@@ -7,8 +7,8 @@ export default function EntreeUtilisateur() {
   const [error, setError] = useState('');
   const [content, setContent] = useState(null);
   const [selectedPossesseur, setSelectedPossesseur] = useState('');
-  const [selectedPossessions, setSelectedPossessions] = useState([]);
 
+  // Vérifiez si loremIpsumTexts et staticImages sont définis
   const loremIpsumTexts = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -18,41 +18,39 @@ export default function EntreeUtilisateur() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!startDate || !endDate || startDate > endDate || !selectedPossesseur || selectedPossessions.length === 0) {
-      setError('Veuillez entrer des dates valides, sélectionner un possesseur et choisir au moins une possession.');
+    // Vérifiez que les dates sont valides
+    if (!startDate || !endDate || startDate > endDate || !selectedPossesseur) {
+      setError('Veuillez entrer des dates valides et sélectionner un possesseur.');
       return;
     }
 
+    // Calcul de la différence de dates en jours, mois et années
     const timeDiff = endDate - startDate;
     const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const monthsDiff = Math.floor(daysDiff / 30);
     const yearsDiff = Math.floor(monthsDiff / 12);
 
+    // Mettez à jour l'état avec la distance calculée
     const randomContent = {
       loremIpsumText: loremIpsumTexts[Math.floor(Math.random() * loremIpsumTexts.length)],
       distance: { days: daysDiff, months: monthsDiff, years: yearsDiff }
     };
 
     setContent(randomContent);
-    setError('');
+    setError(''); // Réinitialiser l'erreur si tout est correct
   };
 
   const handleDateChange = (dateType, setDateFunc) => {
-    const selectedDate = dateType;
+    const selectedDate = new Date(dateType);
     setDateFunc(selectedDate);
 
-    if (startDate && endDate && startDate > endDate) {
+    if (dateType === 'start') {
+      setError('');
+    } else if (startDate && endDate && startDate > endDate) {
       setError('La date de fin doit être postérieure à la date de début');
     } else {
-      setError('');
+      setError(''); // Réinitialiser l'erreur si les dates sont correctes
     }
-  };
-
-  const handlePossessionChange = (event) => {
-    const possession = event.target.value;
-    setSelectedPossessions(prev => 
-      event.target.checked ? [...prev, possession] : prev.filter(p => p !== possession)
-    );
   };
 
   const possesseurs = [
@@ -90,11 +88,7 @@ export default function EntreeUtilisateur() {
         <div className='possessions'>
           {possessions.map((possession, index) => (
             <label key={index}>
-              <input 
-                type="checkbox" 
-                value={possession.name}
-                onChange={handlePossessionChange} 
-              />
+              <input type="checkbox" />
               {possession.name}
             </label>
           ))}
@@ -125,7 +119,7 @@ export default function EntreeUtilisateur() {
       {content && (
         <div className="content-section">
           <h2>Contenu dynamique</h2>
-          <Graphe content={content} possesseur={selectedPossesseur} possessions={selectedPossessions} />
+          <Graphe content={content} possesseur={selectedPossesseur} />
         </div>
       )}
     </div>
